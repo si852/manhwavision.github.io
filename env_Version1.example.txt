@@ -1,0 +1,10 @@
+# Environment variables - copy to .env and fill
+DATABASE_URL="file:./dev.db"
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=change_this_to_a_random_string
+
+# Optional OAuth providers for NextAuth
+GITHUB_ID=
+GITHUB_SECRET=
+EMAIL_SERVER=
+EMAIL_FROM=

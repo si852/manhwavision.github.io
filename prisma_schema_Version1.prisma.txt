@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Series {
+  id        Int       @id @default(autoincrement())
+  title     String
+  slug      String    @unique
+  description String?
+  coverUrl  String?
+  status    String    @default("ongoing")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  chapters  Chapter[]
+  tags      SeriesTag[]
+}
+
+model Chapter {
+  id        Int      @id @default(autoincrement())
+  series    Series   @relation(fields: [seriesId], references: [id])
+  seriesId  Int
+  number    Int
+  title     String?
+  slug      String
+  publishedAt DateTime?
+  pages     Page[]
+  createdAt DateTime @default(now())
+}
+
+model Page {
+  id        Int     @id @default(autoincrement())
+  chapter   Chapter @relation(fields: [chapterId], references: [id])
+  chapterId Int
+  index     Int
+  imageUrl  String
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  email     String   @unique
+  image     String?
+  bookmarks Bookmark[]
+  createdAt DateTime @default(now())
+}
+
+model Bookmark {
+  id        Int     @id @default(autoincrement())
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int
+  series    Series  @relation(fields: [seriesId], references: [id])
+  seriesId  Int
+  chapter   Chapter? @relation(fields: [chapterId], references: [id])
+  chapterId Int?
+  pageIndex Int?     // reading progress
+  createdAt DateTime @default(now())
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  series SeriesTag[]
+}
+
+model SeriesTag {
+  id       Int    @id @default(autoincrement())
+  series   Series @relation(fields: [seriesId], references: [id])
+  seriesId Int
+  tag      Tag    @relation(fields: [tagId], references: [id])
+  tagId    Int
+
+  @@unique([seriesId, tagId])
+}

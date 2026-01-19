@@ -1,0 +1,37 @@
+'use client'
+import React, { useState } from 'react'
+import Link from 'next/link'
+
+export default function Reader({ pages, seriesSlug, chapterSlug }: any) {
+  const [index, setIndex] = useState(0)
+  const total = pages.length
+
+  if (total === 0) return <div>No pages</div>
+
+  const goNext = () => setIndex(i => Math.min(total - 1, i + 1))
+  const goPrev = () => setIndex(i => Math.max(0, i - 1))
+
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
+        <div>
+          <Link href={`/series/${seriesSlug}`}>← Back</Link>
+        </div>
+        <div className="text-sm text-gray-600">Page {index + 1} / {total}</div>
+      </div>
+
+      <div className="bg-white p-4 rounded">
+        <img src={pages[index].imageUrl} alt={`Page ${index + 1}`} className="mx-auto" />
+      </div>
+
+      <div className="flex justify-between">
+        <button onClick={goPrev} className="px-4 py-2 bg-gray-200 rounded">Previous</button>
+        <div className="flex gap-2">
+          <button onClick={goNext} className="px-4 py-2 bg-blue-600 text-white rounded">Next</button>
+        </div>
+      </div>
+
+      <div className="text-xs text-gray-500">Long-scroll mode and reading progress sync to be implemented (client + API).</div>
+    </div>
+  )
+}

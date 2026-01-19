@@ -1,0 +1,19 @@
+import './globals.css'
+import React from 'react'
+import Header from '../components/Header'
+
+export const metadata = {
+  title: 'Manhwa Reader',
+  description: 'A lightweight manhwa reader starter'
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <Header />
+        <main className="max-w-5xl mx-auto p-4">{children}</main>
+      </body>
+    </html>
+  )
+}

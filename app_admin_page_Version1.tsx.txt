@@ -1,0 +1,15 @@
+import React from 'react'
+
+export default function AdminPage() {
+  return (
+    <div>
+      <h1 className="text-2xl font-bold">Admin</h1>
+      <p className="mt-4">Admin UI skeleton — implement authentication-protected forms here to create/update series, chapters, and upload images (connect to S3/R2).</p>
+      <ul className="mt-4 list-disc ml-6">
+        <li>Create Series</li>
+        <li>Upload cover (S3 or R2)</li>
+        <li>Create Chapter & upload pages</li>
+      </ul>
+    </div>
+  )
+}

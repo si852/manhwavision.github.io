@@ -1,0 +1,13 @@
+import Link from 'next/link'
+import React from 'react'
+
+export default function SeriesCard({ series }: any) {
+  return (
+    <Link href={`/series/${series.slug}`} className="block bg-white rounded shadow-sm overflow-hidden">
+      <img src={series.coverUrl ?? 'https://placehold.co/300x450?text=Cover'} alt={series.title} className="w-full h-48 object-cover" />
+      <div className="p-2">
+        <h3 className="text-sm font-semibold">{series.title}</h3>
+      </div>
+    </Link>
+  )
+}
